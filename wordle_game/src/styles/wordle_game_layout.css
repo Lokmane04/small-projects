@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+
+.board {
+  width: 60%;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin-left: 40%;
+}
+
+.box {
+  background-color: grey;
+  border-radius: 15px;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #191a24;
+  border: 2px solid #414458;
+}
+
+.text_box {
+  font-family: "Pacifico", cursive;
+  font-size: 25px;
+  text-transform: uppercase;
+  color: whitesmoke;
+}
+@media (max-width: 1000px) {
+  .container {
+    width: 100vw;
+    margin: 25% auto 5% auto;
+  }
+}
+@media (max-width: 700px) {
+  .container {
+    width: 85vw;
+    margin: 40% auto 5% auto;
+    background: #000;
+  }
+}
+@media (max-width: 600px) {
+  .container {
+    width: 90vw;
+    margin: 35% auto 5% auto;
+    background: red;
+  }
+}
