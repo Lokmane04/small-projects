@@ -9,8 +9,26 @@ function App() {
   const [guessedWords, setGuessedWords] = useState<string[]>(
     Array(6).fill(null)
   );
+  const [currentGuess, setCurrentGuess] = useState("");
+  const [gameOver, setGameOver] = useState(false);
 
-  // useEffect(() => {}, []);
+  useEffect(() => {
+    const handleTyping = (event: any) => {
+      if (gameOver) return;
+      if (event.key === "Backspace") {
+        setCurrentGuess(currentGuess.slice(0, -1));
+        return;
+      }
+      if (event.key === "Enter") {
+        if (currentGuess.length !== 5) return;
+        if (solution === currentGuess) setGameOver(true);
+      }
+      setCurrentGuess((prev) => prev + event.key);
+    };
+    if (currentGuess.length === 5) return;
+    window.addEventListener("keydown", handleTyping);
+    return () => window.removeEventListener("keydown", handleTyping);
+  }, [currentGuess, gameOver, solution]);
   useEffect(() => {
     // picking a random word from the wordlist coming from dictionary.js
     const word =
@@ -21,11 +39,16 @@ function App() {
   return (
     <div className="board">
       <TopBar />
-      {["aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa", "aaaaa"].map(
-        (guess, i) => (
-          <Row guess={guess ?? ""} key={i} />
-        )
-      )}
+      {guessedWords.map((guess, i) => {
+        const isCurrent = i === guessedWords.findIndex((word) => word == null);
+        return (
+          <Row
+            finalGuess={!isCurrent}
+            guess={isCurrent ? currentGuess : guess ?? ""}
+            key={i}
+          />
+        );
+      })}
       <Timer />
     </div>
   );
