@@ -4,6 +4,7 @@ import Timer from "./components/Timer";
 import TopBar from "./components/TopBar";
 import { availableWords } from "./data/dictionary.js";
 import Modal from "./components/Modal.js";
+import HowToPlay from "./components/HowToPlay.js";
 
 function App() {
   const [solution, setsolution] = useState("hello");
@@ -67,6 +68,7 @@ function App() {
         })}
 
         <Modal gameOver={gameOver} solution={solution} />
+        <HowToPlay />
       </div>
     </>
   );
