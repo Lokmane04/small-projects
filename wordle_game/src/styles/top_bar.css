@@ -1,10 +1,11 @@
 .top_bar {
   height: 8vh;
-  text-align: left;
-  margin: 2.5% 8% 7% 0;
+  width: 100%;
+  margin-bottom: 45px;
 }
 .logo {
   font-family: "Pacifico", cursive;
-  font-size: 50px;
+  font-size: 60px;
   color: antiquewhite;
+  margin: 25px 5% 0px 40%;
 }

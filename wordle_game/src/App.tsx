@@ -3,6 +3,7 @@ import Row from "./components/Row";
 import Timer from "./components/Timer";
 import TopBar from "./components/TopBar";
 import { availableWords } from "./data/dictionary.js";
+import Modal from "./components/Modal.js";
 
 function App() {
   const [solution, setsolution] = useState("hello");
@@ -45,7 +46,7 @@ function App() {
     const word =
       availableWords[Math.ceil(Math.random() * (availableWords.length - 1))];
     // storing the word inside a state
-    setsolution(word.toLocaleLowerCase());
+    // setsolution(word.toLocaleLowerCase());
   }, []);
   return (
     <>
@@ -64,7 +65,8 @@ function App() {
             />
           );
         })}
-        <Timer />
+
+        <Modal gameOver={gameOver} solution={solution} />
       </div>
     </>
   );
