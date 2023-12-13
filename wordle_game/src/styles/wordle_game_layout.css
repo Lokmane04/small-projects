@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 
+.game_over_modal {
+}
 .board {
   width: 60%;
   margin: 0 auto;
@@ -9,6 +11,7 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  z-index: 1;
 }
 .row {
   display: flex;
@@ -56,4 +59,16 @@
     margin: 35% auto 5% auto;
     background: red;
   }
+}
+
+/* box colors */
+
+.correct {
+  background-color: teal !important;
+}
+.incorrect {
+  background-color: dimgray !important;
+}
+.close {
+  background-color: rgb(230, 230, 9) !important;
 }
