@@ -52,6 +52,7 @@ function App() {
       availableWords[Math.ceil(Math.random() * (availableWords.length - 1))];
     // storing the word inside a state
     setsolution(word.toLocaleLowerCase());
+    console.log(word);
   }, []);
   return (
     <>

@@ -1,5 +1,5 @@
 import "../styles/how_to_play.css";
-import Faq from "../assets/faq";
+import Faq from "../assets/Faq";
 import WordFinder from "../assets/wordFinder";
 const HowToPlay = () => {
   const wordExample = ["T", "A", "B", "L", "E"];
