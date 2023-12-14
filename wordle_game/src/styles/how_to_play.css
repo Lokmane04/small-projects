@@ -1,11 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+
+.tutoriel {
+  font-family: apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
+    Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 #faqButton {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #4caf50; /* Green */
+  padding: 5px 10px;
   border: none;
   color: white;
-  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -17,7 +28,7 @@
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  padding-top: 50px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -33,4 +44,35 @@
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+}
+
+h1 {
+  font-size: 200%;
+  margin: 0 0 15px;
+  text-align: center;
+  color: #888;
+  font-family: "Pacifico", cursive;
+}
+h4 {
+  text-align: center;
+  font-size: 120%;
+}
+
+.example {
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  justify-content: center;
+}
+.svg_container {
+  align-self: center;
+  margin-left: 44%;
+}
+.close_modal {
+  background-image: linear-gradient(to right, #7f53ac 0, #657ced 100%);
+  margin-left: 45% !important;
+  margin-top: 0 !important;
+  border: none;
+  padding: 20px 40px;
+  font-size: 1.1rem !important;
 }
