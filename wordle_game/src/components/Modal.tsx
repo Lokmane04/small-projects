@@ -7,9 +7,7 @@ const Modal = ({
   solution: string;
 }) => {
   const refreshPage = () => {
-    setTimeout(() => {
-      location.reload();
-    }, 3000);
+    location.reload();
   };
   return (
     <>
@@ -18,12 +16,16 @@ const Modal = ({
           👋 Congrats
         </a>
       ) : (
-        <a className="btn" href="#open-modal" onClick={refreshPage}>
+        <a className="btn" href="#open-modal">
           Reveal the word
         </a>
       )}
       <div id="open-modal" className="modal-window">
         <div>
+          <button className="modal-close" onClick={refreshPage}>
+            Close
+          </button>
+
           {gameOver && (
             <a href="#" title="Close" className="modal-close">
               Close

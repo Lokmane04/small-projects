@@ -38,11 +38,13 @@
   line-height: 50px;
   font-size: 80%;
   position: absolute;
-  right: 0;
+  right: 5px;
   text-align: center;
-  top: 0;
+  top: 5px;
   width: 70px;
   text-decoration: none;
+  border: none !important;
+  background-color: #fff;
   &:hover {
     color: black;
   }

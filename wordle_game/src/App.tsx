@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Row from "./components/Row";
-import Timer from "./components/Timer";
 import TopBar from "./components/TopBar";
 import { availableWords } from "./data/dictionary.js";
 import Modal from "./components/Modal.js";
@@ -14,6 +13,11 @@ function App() {
   const [currentGuess, setCurrentGuess] = useState("");
   const [gameOver, setGameOver] = useState(false);
 
+  // memoizing the dependencies array
+  const dependencies = useMemo(
+    () => [currentGuess, gameOver, solution, guessedWords],
+    [currentGuess, gameOver, solution, guessedWords]
+  );
   useEffect(() => {
     const handleTyping = (event: any) => {
       if (gameOver) return;
@@ -40,14 +44,14 @@ function App() {
     return () => {
       window.removeEventListener("keydown", handleTyping);
     };
-  }, [currentGuess, gameOver, solution, guessedWords]);
+  }, dependencies);
 
   useEffect(() => {
     // picking a random word from the wordlist coming from dictionary.js
     const word =
       availableWords[Math.ceil(Math.random() * (availableWords.length - 1))];
     // storing the word inside a state
-    // setsolution(word.toLocaleLowerCase());
+    setsolution(word.toLocaleLowerCase());
   }, []);
   return (
     <>
