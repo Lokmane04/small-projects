@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as dat from "lil-gui";
-import typeFacefont from "../static/fonts/helvetiker_regular.typeface.json";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 
@@ -21,12 +20,14 @@ const scene = new THREE.Scene();
  * Textures
  */
 const textureLoader = new THREE.TextureLoader();
+const matcapTexture = textureLoader.load("/matcaps/2.png");
+
 //fonts
 
 const fontLoader = new FontLoader();
 
 fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
-  const textureGeometry = new TextGeometry("Allahu akbar", {
+  const textureGeometry = new TextGeometry("Hello Three.js", {
     font,
     size: 0.5,
     curveSegments: 5,
@@ -37,15 +38,32 @@ fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
     bevelSize: 0.02,
     bevelThickness: 0.03,
   });
-  textureGeometry.computeBoundingBox();
-  textureGeometry.translate(
-    -textureGeometry.boundingBox.max.x * 0.5,
-    -textureGeometry.boundingBox.max.y * 0.5,
-    -textureGeometry.boundingBox.max.z * 0.5
-  );
-  const textMaterial = new THREE.MeshBasicMaterial();
-  const text = new THREE.Mesh(textureGeometry, textMaterial);
+  // textureGeometry.computeBoundingBox();
+  // textureGeometry.translate(
+  //   -(textureGeometry.boundingBox.max.x - 0.02) * 0.5,
+  //   -(textureGeometry.boundingBox.max.y - 0.02) * 0.5,
+  //   -(textureGeometry.boundingBox.max.z - 0.03) * 0.5
+  // );
+  textureGeometry.center();
+  // const textMaterial = new THREE.MeshMatcapMaterial({ matcap: matcapTexture });
+  const normalMaterial = new THREE.MeshNormalMaterial();
+  const text = new THREE.Mesh(textureGeometry, normalMaterial);
   scene.add(text);
+
+  const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45);
+  for (let i = 0; i < 800; i++) {
+    const donut = new THREE.Mesh(donutGeometry, normalMaterial);
+    donut.position.x = (Math.random() - 0.5) * 30;
+    donut.position.y = (Math.random() - 0.5) * 30;
+    donut.position.z = (Math.random() - 0.5) * 30;
+
+    donut.rotation.x = Math.random() * Math.PI;
+    donut.rotation.y = Math.random() * Math.PI;
+
+    const scale = Math.random();
+    donut.scale.set(scale, scale, scale);
+    scene.add(donut);
+  }
 });
 /**
  * Sizes
