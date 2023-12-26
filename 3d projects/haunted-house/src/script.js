@@ -14,6 +14,8 @@ const canvas = document.querySelector("canvas.webgl");
 // Scene
 const scene = new THREE.Scene();
 
+// fog
+
 /**
  * Textures
  */
@@ -57,7 +59,7 @@ const door = new THREE.Mesh(
   new THREE.PlaneGeometry(2, 2),
   new THREE.MeshStandardMaterial({ color: "#aa7b7b" })
 );
-door.position.set(0, 1, 2.01);
+door.position.set(0, 1.4, 2.01);
 door.scale.y = 1.5;
 door.scale.x = 0.8;
 house.add(door);
@@ -89,22 +91,51 @@ bush4.position.set(-1, 0.05, 2.6);
 
 house.add(bush1, bush2, bush3, bush4);
 
+//graves
+const graves = new THREE.Group();
+scene.add(graves);
+
+const graveGeometry = new THREE.BoxGeometry(0.6, 0.8, 0.2);
+const graveMat = new THREE.MeshStandardMaterial({
+  color: "#b2b6b1",
+  side: THREE.DoubleSide,
+});
+
+for (let i = 0; i < 50; i++) {
+  const angle = Math.random() * Math.PI * 2;
+  const radius = 3 + Math.random() * 6;
+  const xAngle = Math.sin(angle) * radius;
+  const zAngle = Math.cos(angle) * radius;
+
+  const grave = new THREE.Mesh(graveGeometry, graveMat);
+
+  grave.position.set(xAngle, 0.3, zAngle);
+  grave.rotation.y = (Math.random() - 0.5) * 0.3;
+  grave.rotation.z = (Math.random() - 0.5) * 0.3;
+  graves.add(grave);
+}
 /**
  * Lights
  */
 // Ambient light
-const ambientLight = new THREE.AmbientLight("#ffffff", 0.5);
+const ambientLight = new THREE.AmbientLight("#b5d9ff", 0.12);
 gui.add(ambientLight, "intensity").min(0).max(1).step(0.001);
 scene.add(ambientLight);
 
 // Directional light
-const moonLight = new THREE.DirectionalLight("#ffffff", 0.5);
+const moonLight = new THREE.DirectionalLight("#b5d9ff", 0.12);
 moonLight.position.set(4, 5, -2);
 gui.add(moonLight, "intensity").min(0).max(1).step(0.001);
 gui.add(moonLight.position, "x").min(-5).max(5).step(0.001);
 gui.add(moonLight.position, "y").min(-5).max(5).step(0.001);
 gui.add(moonLight.position, "z").min(-5).max(5).step(0.001);
 scene.add(moonLight);
+
+// door light
+
+const doorLight = new THREE.PointLight("#ff7d46", 1, 7);
+doorLight.position.set(0, 3.5, 2.7);
+scene.add(doorLight);
 
 /**
  * Sizes
