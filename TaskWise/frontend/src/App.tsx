@@ -1,24 +1,20 @@
-import { useState } from "react";
-import viteLogo from "/vite.svg";
+import "react-quill/dist/quill.snow.css";
+import CreateUpdateTask from "./components/CreateUpdateTask";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import TaskDetailDisplay from "./components/TaskDetailDisplay";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<TaskDetailDisplay />} />
+        <Route
+          path="/update/:id"
+          element={<CreateUpdateTask type="update" />}
+        />
+        <Route path="/create" element={<CreateUpdateTask type="create" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
