@@ -2,10 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import { TaskModel } from "./models/TaskModel.js";
+
 const app = express();
 
 app.use(cors());
-
 app.use(express.json());
 
 mongoose
@@ -14,40 +14,74 @@ mongoose
     console.log("MongoDB connected");
   })
   .catch((err) => {
-    console.log(err);
+    console.error("MongoDB connection error:", err);
   });
 
-app.post("/createTask", (req, res) => {
-  TaskModel.create(req.body)
-    .then((user) => res.json(user))
-    .catch((err) => console.log(err));
+app.post("/createTask", async (req, res) => {
+  try {
+    const newTask = await TaskModel.create(req.body);
+    res.json(newTask);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 });
 
-app.get("/", (req, res) => {
-  TaskModel.find({})
-    .then((user) => res.json(user))
-    .catch((err) => console.log(err));
+app.get("/", async (req, res) => {
+  try {
+    const tasks = await TaskModel.find({});
+    res.json(tasks);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 });
 
 app.get("/updateTask/:id", async (req, res) => {
-  const id = req.params.id;
-  TaskModel.findById({ _id: id })
-    .then((user) => res.json(user))
-    .catch((err) => console.log(err));
+  try {
+    const id = req.params.id;
+    const task = await TaskModel.findById(id);
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+    res.json(task);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 });
+
 app.put("/updateTask/:id", async (req, res) => {
-  const id = req.params.id;
-  const updateData = req.body;
-  TaskModel.findByIdAndUpdate({ _id: id }, updateData)
-    .then((updatedTask) => res.json(updatedTask.title))
-    .catch((err) => console.log(err));
+  try {
+    const id = req.params.id;
+    const updateData = req.body;
+    const updatedTask = await TaskModel.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+    if (!updatedTask) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+    res.json(updatedTask);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 });
 
-app.get("/delete/:id", async (req, res) => {
-  const id = req.params.id;
-  TaskModel.findByIdAndDelete({ _id: id })
-    .then((user) => res.json(user))
-    .catch((err) => console.log(err));
+app.delete("/deleteTask/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deletedTask = await TaskModel.findByIdAndDelete({ _id: id });
+    if (!deletedTask) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
 });
 
-app.listen("3001", () => console.log("Server is running on port 3001"));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
